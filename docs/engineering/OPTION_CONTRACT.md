@@ -2,33 +2,36 @@
 
 ## Options
 
-| Option               | Values                          | Default  | Ownership                                 |
-| -------------------- | ------------------------------- | -------- | ----------------------------------------- |
-| `router`             | `true`, `false`                 | `true`   | Routes and router bootstrap               |
-| `apiClient`          | `true`, `false`                 | `true`   | API client and service boundary           |
-| `state`              | `none`, `context`, `zustand`    | `none`   | Shared client-side state strategy         |
-| `tailwind`           | `true`, `false`                 | `false`  | Tailwind packages and configuration       |
-| `uiLibrary`          | `none`, `shadcn`, `antd`, `mui` | `none`   | Selected UI library setup and components  |
-| `icons`              | `lucide`, `none`                | `lucide` | Shared icon library                       |
-| `notifications`      | `true`, `false`                 | `false`  | Shared notification infrastructure        |
-| `theme`              | `none`, `light-dark`            | `none`   | Theme state and switching                 |
-| `authentication`     | `none`, `jwt`, `oidc`           | `none`   | Identity baseline                         |
-| `authorization`      | `none`, `route`, `permission`   | `none`   | Access-control baseline                   |
-| `layout`             | `none`, `basic`, `app-shell`    | `basic`  | Application composition shell             |
-| `errorBoundary`      | `true`, `false`                 | `true`   | Render failure boundary                   |
-| `loadingState`       | `true`, `false`                 | `true`   | Shared loading baseline                   |
-| `envValidation`      | `true`, `false`                 | `true`   | Runtime environment validation            |
-| `testing`            | `none`, `unit`, `component`     | `unit`   | Test dependencies, setup, and examples    |
-| `query`              | `true`, `false`                 | `false`  | TanStack Query provider and client        |
-| `mockApi`            | `true`, `false`                 | `false`  | Local API mocking                         |
-| `table`              | `true`, `false`                 | `false`  | TanStack Table reusable table             |
-| `forms`              | `true`, `false`                 | `false`  | React Hook Form and Zod baseline          |
-| `localization`       | `true`, `false`                 | `false`  | i18next initialization                    |
-| `charts`             | `true`, `false`                 | `false`  | Recharts baseline chart                   |
-| `fileUpload`         | `true`, `false`                 | `false`  | Accessible native upload control          |
-| `reusableComponents` | `true`, `false`                 | `false`  | Shared empty-state baseline               |
-| `pageTemplates`      | `true`, `false`                 | `false`  | List and detail page composition          |
-| `apiModels`          | `true`, `false`                 | `false`  | Response, pagination, and error contracts |
+| Option               | Values                                     | Default    | Ownership                                 |
+| -------------------- | ------------------------------------------ | ---------- | ----------------------------------------- |
+| `router`             | `true`, `false`                            | `true`     | Routes and router bootstrap               |
+| `apiClient`          | `true`, `false`                            | `true`     | API client and service boundary           |
+| `state`              | `none`, `context`, `zustand`               | `none`     | Shared client-side state strategy         |
+| `tailwind`           | `true`, `false`                            | `false`    | Tailwind packages and configuration       |
+| `uiLibrary`          | `none`, `shadcn`, `antd`, `mui`            | `none`     | Selected UI library setup and components  |
+| `icons`              | `lucide`, `none`                           | `lucide`   | Shared icon library                       |
+| `notifications`      | `true`, `false`                            | `false`    | Shared notification infrastructure        |
+| `dateTime`           | `none`, `date-fns`, `dayjs`                | `date-fns` | Date, time, and duration helpers          |
+| `utilities`          | `none`, `standard`, `lodash`               | `standard` | General-purpose application helpers       |
+| `theme`              | `none`, `light-dark`                       | `none`     | Theme state and switching                 |
+| `authentication`     | `none`, `jwt`, `oidc`                      | `none`     | Identity baseline                         |
+| `authorization`      | `none`, `route`, `permission`              | `none`     | Access-control baseline                   |
+| `layout`             | `none`, `basic`, `app-shell`               | `basic`    | Application composition shell             |
+| `errorBoundary`      | `true`, `false`                            | `true`     | Render failure boundary                   |
+| `loadingState`       | `true`, `false`                            | `true`     | Shared loading baseline                   |
+| `envValidation`      | `true`, `false`                            | `true`     | Runtime environment validation            |
+| `testing`            | `none`, `unit`, `component`, `e2e`         | `unit`     | Cumulative test tooling and examples      |
+| `query`              | `true`, `false`                            | `false`    | TanStack Query provider and client        |
+| `mockApi`            | `true`, `false`                            | `false`    | Local API mocking                         |
+| `realtime`           | `none`, `websocket`, `signalr`, `socketio` | `none`     | Realtime client capability                |
+| `table`              | `true`, `false`                            | `false`    | TanStack Table reusable table             |
+| `forms`              | `true`, `false`                            | `false`    | React Hook Form and Zod baseline          |
+| `localization`       | `true`, `false`                            | `false`    | i18next initialization                    |
+| `charts`             | `true`, `false`                            | `false`    | Recharts baseline chart                   |
+| `fileUpload`         | `true`, `false`                            | `false`    | Accessible native upload control          |
+| `reusableComponents` | `true`, `false`                            | `false`    | Shared empty-state baseline               |
+| `pageTemplates`      | `true`, `false`                            | `false`    | List and detail page composition          |
+| `apiModels`          | `true`, `false`                            | `false`    | Response, pagination, and error contracts |
 
 ## Validation rules
 

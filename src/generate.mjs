@@ -37,8 +37,16 @@ export async function generate(target, input = {}) {
       '@emotion/styled': '^11.14.0',
     })
   if (o.icons === 'lucide') deps['lucide-react'] = '^0.468.0'
+  if (o.dateTime === 'date-fns') deps['date-fns'] = '^4.1.0'
+  if (o.dateTime === 'dayjs') deps.dayjs = '^1.11.0'
+  if (o.utilities === 'lodash') {
+    deps.lodash = '^4.17.0'
+    deps['@types/lodash'] = '^4.17.0'
+  }
   if (o.state === 'zustand') deps.zustand = '^5.0.0'
   if (o.mockApi) deps.msw = '^2.7.0'
+  if (o.realtime === 'signalr') deps['@microsoft/signalr'] = '^8.0.0'
+  if (o.realtime === 'socketio') deps['socket.io-client'] = '^4.8.0'
   if (o.envValidation) deps.zod = '^4.3.6'
   if (o.query) deps['@tanstack/react-query'] = '^5.101.2'
   if (o.table) deps['@tanstack/react-table'] = '^8.21.3'
@@ -56,12 +64,13 @@ export async function generate(target, input = {}) {
     deps.vitest = '^4.1.9'
     deps['@vitest/coverage-v8'] = '^4.1.9'
   }
-  if (o.testing === 'component')
+  if (['component', 'e2e'].includes(o.testing))
     Object.assign(deps, {
       '@testing-library/react': '^16.3.2',
       '@testing-library/jest-dom': '^6.9.1',
       jsdom: '^29.0.1',
     })
+  if (o.testing === 'e2e') deps['@playwright/test'] = '^1.61.0'
   files.set(
     'package.json',
     json({
@@ -74,6 +83,7 @@ export async function generate(target, input = {}) {
         dev: 'vite',
         build: 'tsc --noEmit && vite build',
         ...(o.testing !== 'none' ? { test: 'vitest run' } : {}),
+        ...(o.testing === 'e2e' ? { 'test:e2e': 'playwright test' } : {}),
       },
       dependencies: Object.fromEntries(
         Object.entries(deps).filter(([k]) =>
@@ -90,8 +100,13 @@ export async function generate(target, input = {}) {
             '@emotion/react',
             '@emotion/styled',
             'lucide-react',
+            'date-fns',
+            'dayjs',
+            'lodash',
             'zustand',
             'msw',
+            '@microsoft/signalr',
+            'socket.io-client',
             'zod',
             '@tanstack/react-query',
             '@tanstack/react-table',
@@ -119,8 +134,13 @@ export async function generate(target, input = {}) {
               '@emotion/react',
               '@emotion/styled',
               'lucide-react',
+              'date-fns',
+              'dayjs',
+              'lodash',
               'zustand',
               'msw',
+              '@microsoft/signalr',
+              'socket.io-client',
               'zod',
               '@tanstack/react-query',
               '@tanstack/react-table',
@@ -183,7 +203,7 @@ export async function generate(target, input = {}) {
   ]
   files.set(
     'vite.config.ts',
-    `${viteImports.join('\n')}\nexport default defineConfig({ plugins: [react()${o.tailwind ? ', tailwindcss()' : ''}]${o.testing !== 'none' ? `, test: { environment: '${o.testing === 'component' ? 'jsdom' : 'node'}' }` : ''} })\n`,
+    `${viteImports.join('\n')}\nexport default defineConfig({ plugins: [react()${o.tailwind ? ', tailwindcss()' : ''}]${o.testing !== 'none' ? `, test: { include: ['src/**/*.test.{ts,tsx}'], environment: '${['component', 'e2e'].includes(o.testing) ? 'jsdom' : 'node'}' }` : ''} })\n`,
   )
   const baseCss = `:root { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #172033; background: #f6f8fc; color-scheme: light; font-synthesis: none; --surface: #fff; --muted: #5f6b7c; --border: #dfe5ef; --accent: #3157d5; --accent-strong: #2444ad; } html[data-theme='dark'] { color: #edf2ff; background: #0d1321; color-scheme: dark; --surface: #151d2e; --muted: #a9b4c8; --border: #2b3750; --accent: #8aa4ff; --accent-strong: #b7c6ff; } * { box-sizing: border-box; } html { min-width: 320px; background: inherit; } body { margin: 0; min-width: 320px; min-height: 100vh; background: radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 12%, transparent), transparent 32rem), inherit; } button, input { font: inherit; } button, a { touch-action: manipulation; } a { color: var(--accent); } a:hover { color: var(--accent-strong); } :focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 3px; } .skip-link { position: fixed; left: 1rem; top: 1rem; z-index: 10; padding: .65rem 1rem; border-radius: .6rem; background: var(--surface); transform: translateY(-150%); } .skip-link:focus { transform: translateY(0); } main { width: min(100% - 2rem, 72rem); margin-inline: auto; padding: max(1rem, env(safe-area-inset-top)) 0 4rem; } .site-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .75rem 0 2.5rem; border-bottom: 1px solid var(--border); } .brand { color: inherit; font-weight: 750; letter-spacing: -.02em; text-decoration: none; } .site-actions { display: flex; align-items: center; gap: .75rem; } .button { min-height: 2.5rem; padding: .55rem .9rem; border: 1px solid var(--border); border-radius: .7rem; color: inherit; background: var(--surface); cursor: pointer; } .button:hover { border-color: var(--accent); } .hero { padding: clamp(3.5rem, 8vw, 7rem) 0 2rem; } .eyebrow { margin: 0 0 1rem; color: var(--accent); font-size: .78rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; } h1 { max-width: 14ch; margin: 0; font-size: clamp(2.75rem, 8vw, 5.75rem); line-height: .98; letter-spacing: -.065em; text-wrap: balance; } .lede { max-width: 42rem; margin: 1.5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.7; text-wrap: pretty; } .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; } .feature-card { min-width: 0; padding: 1.25rem; border: 1px solid var(--border); border-radius: 1rem; background: color-mix(in srgb, var(--surface) 88%, transparent); box-shadow: 0 1rem 3rem rgba(26, 42, 76, .06); } .feature-card h2 { margin: 0 0 .5rem; font-size: 1rem; } .feature-card p { margin: 0; color: var(--muted); line-height: 1.55; } [role='status'], [role='alert'] { padding: 1rem; border: 1px solid var(--border); border-radius: .8rem; background: var(--surface); } table { width: 100%; border-collapse: collapse; } th, td { padding: .75rem; border-bottom: 1px solid var(--border); text-align: left; } input { min-height: 2.5rem; border: 1px solid var(--border); border-radius: .6rem; background: var(--surface); color: inherit; } @media (max-width: 720px) { .feature-grid { grid-template-columns: 1fr; } .site-header { padding-bottom: 1rem; } } @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }\n`
   files.set(
@@ -268,6 +288,26 @@ export async function generate(target, input = {}) {
       'src/components/Icon.tsx',
       "export { Check,Info,TriangleAlert,XCircle } from 'lucide-react'\n",
     )
+  if (o.dateTime === 'date-fns')
+    files.set(
+      'src/lib/dateTime.ts',
+      "import { format,formatDuration as formatParts,intervalToDuration,parseISO } from 'date-fns'\nexport const parseDate=(value:string)=>parseISO(value)\nexport const formatDate=(value:Date,pattern='yyyy-MM-dd')=>format(value,pattern)\nexport const formatDuration=(milliseconds:number)=>formatParts(intervalToDuration({start:0,end:milliseconds}))\n",
+    )
+  if (o.dateTime === 'dayjs')
+    files.set(
+      'src/lib/dateTime.ts',
+      "import dayjs from 'dayjs'\nimport duration from 'dayjs/plugin/duration'\nimport relativeTime from 'dayjs/plugin/relativeTime'\ndayjs.extend(duration)\ndayjs.extend(relativeTime)\nexport const parseDate=(value:string)=>dayjs(value)\nexport const formatDate=(value:Date,pattern='YYYY-MM-DD')=>dayjs(value).format(pattern)\nexport const formatDuration=(milliseconds:number)=>dayjs.duration(milliseconds).humanize()\n",
+    )
+  if (o.utilities === 'standard')
+    files.set(
+      'src/lib/utilities.ts',
+      'export const capitalize=(value:string)=>value.length?value[0].toUpperCase()+value.slice(1):value\nexport const clamp=(value:number,min:number,max:number)=>Math.min(max,Math.max(min,value))\nexport const pick=<T extends object,K extends keyof T>(value:T,keys:K[])=>Object.fromEntries(keys.map(key=>[key,value[key]])) as Pick<T,K>\n',
+    )
+  if (o.utilities === 'lodash')
+    files.set(
+      'src/lib/utilities.ts',
+      "export { default as camelCase } from 'lodash/camelCase'\nexport { default as clamp } from 'lodash/clamp'\nexport { default as get } from 'lodash/get'\n",
+    )
   if (o.mockApi) {
     files.set(
       'src/mocks/handlers.ts',
@@ -278,6 +318,21 @@ export async function generate(target, input = {}) {
       "import { setupWorker } from 'msw/browser'\nimport { handlers } from './handlers'\nexport const mockWorker=setupWorker(...handlers)\n",
     )
   }
+  if (o.realtime === 'websocket')
+    files.set(
+      'src/lib/realtime.ts',
+      'export const createRealtimeClient=(url:string)=>new WebSocket(url)\n',
+    )
+  if (o.realtime === 'signalr')
+    files.set(
+      'src/lib/realtime.ts',
+      "import { HubConnectionBuilder } from '@microsoft/signalr'\nexport const createRealtimeClient=(url:string)=>new HubConnectionBuilder().withUrl(url).withAutomaticReconnect().build()\n",
+    )
+  if (o.realtime === 'socketio')
+    files.set(
+      'src/lib/realtime.ts',
+      "import { io } from 'socket.io-client'\nexport const createRealtimeClient=(url:string)=>io(url,{autoConnect:false})\n",
+    )
   if (o.errorBoundary)
     files.set(
       'src/app/ErrorBoundary.tsx',
@@ -401,10 +456,20 @@ export async function generate(target, input = {}) {
   if (o.testing !== 'none')
     files.set(
       'src/App.test.tsx',
-      o.testing === 'component'
+      ['component', 'e2e'].includes(o.testing)
         ? componentTest
         : "import { describe,expect,it } from 'vitest'\ndescribe('baseline',()=>{it('is configured',()=>expect(true).toBe(true))})\n",
     )
+  if (o.testing === 'e2e') {
+    files.set(
+      'playwright.config.ts',
+      "import { defineConfig } from '@playwright/test'\nexport default defineConfig({testDir:'./e2e',use:{baseURL:'http://127.0.0.1:4173'},webServer:{command:'npm run dev -- --host 127.0.0.1 --port 4173',url:'http://127.0.0.1:4173',reuseExistingServer:!process.env.CI}})\n",
+    )
+    files.set(
+      'e2e/app.spec.ts',
+      "import { expect,test } from '@playwright/test'\ntest('application loads',async({page})=>{await page.goto('/');await expect(page.getByRole('heading',{level:1})).toHaveText('React Template')})\n",
+    )
+  }
   files.set('.gitignore', 'node_modules\ndist\n.env.local\n')
   for (const [name, content] of files) {
     const path = resolve(root, name)

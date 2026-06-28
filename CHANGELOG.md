@@ -11,6 +11,8 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 - Capability options for client state, UI libraries, icons, notifications, and
   local API mocking, with isolated generated dependencies and source.
+- Capability options for date/time helpers, standard or Lodash utilities,
+  cumulative end-to-end testing, and realtime clients.
 - Repository-local Markdown link validation in the quality gate.
 
 ### Changed

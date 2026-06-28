@@ -31,7 +31,7 @@ jobs:
           - name: minimal
             args: --router=false --apiClient=false --layout=none --errorBoundary=false --loadingState=false --envValidation=false --testing=none
           - name: max
-            args: --state=zustand --uiLibrary=shadcn --notifications=true --theme=light-dark --authentication=jwt --authorization=route --layout=app-shell --testing=component --query=true --mockApi=true --table=true --forms=true --localization=true --charts=true --fileUpload=true --reusableComponents=true --pageTemplates=true --apiModels=true
+            args: --state=zustand --uiLibrary=shadcn --notifications=true --dateTime=dayjs --utilities=lodash --theme=light-dark --authentication=jwt --authorization=route --layout=app-shell --testing=e2e --query=true --mockApi=true --realtime=websocket --table=true --forms=true --localization=true --charts=true --fileUpload=true --reusableComponents=true --pageTemplates=true --apiModels=true
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

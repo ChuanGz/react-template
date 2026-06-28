@@ -79,6 +79,36 @@ test('component test output configures Vitest and router context', async () => {
   assert.match(testFile, /import \{ expect,test \} from 'vitest'/)
 })
 
+test('e2e testing includes component tests and Playwright', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  const result = await generate(root, { testing: 'e2e' })
+  const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
+  assert(result.files.includes('src/App.test.tsx'))
+  assert(result.files.includes('playwright.config.ts'))
+  assert(result.files.includes('e2e/app.spec.ts'))
+  assert.equal(pkg.scripts['test:e2e'], 'playwright test')
+})
+
+test('date, utilities, and realtime strategies stay isolated', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  const result = await generate(root, {
+    dateTime: 'dayjs',
+    utilities: 'lodash',
+    realtime: 'signalr',
+  })
+  const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
+  assert(pkg.dependencies.dayjs)
+  assert(pkg.dependencies.lodash)
+  assert(pkg.dependencies['@microsoft/signalr'])
+  assert.equal(pkg.dependencies['date-fns'], undefined)
+  for (const file of [
+    'src/lib/dateTime.ts',
+    'src/lib/utilities.ts',
+    'src/lib/realtime.ts',
+  ])
+    assert(result.files.includes(file))
+})
+
 test('disabled options do not add owned dependencies', async () => {
   const root = await mkdtemp(join(tmpdir(), 'react-template-'))
   await generate(root, {
