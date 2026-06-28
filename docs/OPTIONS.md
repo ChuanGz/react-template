@@ -4,7 +4,7 @@ Pass options after the target directory using `--option=value`. Omitted options
 use defaults. Boolean values must be `true` or `false`.
 
 ```bash
-pnpm run generate -- enterprise-app \
+pnpm run generate -- react-app \
   --uiLibrary=shadcn \
   --authentication=oidc \
   --authorization=route \
