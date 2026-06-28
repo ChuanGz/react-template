@@ -2,8 +2,9 @@
 
 ## Supported versions
 
-No stable version has been released. Security support begins with the first
-published stable release; this policy will then list supported release lines.
+The `1.x` release line is supported. Older major versions are unsupported unless
+a release-specific notice states otherwise. See the
+[compatibility policy](docs/engineering/COMPATIBILITY.md) for runtime support.
 
 ## Reporting a vulnerability
 
