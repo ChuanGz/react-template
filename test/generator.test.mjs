@@ -66,3 +66,17 @@ test('disabled options do not add owned dependencies', async () => {
     assert.equal(dependencies[name], undefined)
   }
 })
+
+test('environment validation runs during bootstrap', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  await generate(root)
+  const main = await readFile(join(root, 'src/main.tsx'), 'utf8')
+  assert.match(main, /import '.\/lib\/env'/)
+})
+
+test('application layouts provide a main landmark', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  await generate(root, { layout: 'app-shell' })
+  const layout = await readFile(join(root, 'src/app/Layout.tsx'), 'utf8')
+  assert.match(layout, /<main className="app-shell">/)
+})

@@ -23,6 +23,9 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 - M4 ESLint and Prettier quality gates, generated-project CI build matrix, and
   container build validation.
 - Docker packaging for running the generator in an isolated Node environment.
+- M5 browser smoke and accessibility tests, JavaScript bundle budget,
+  dependency review, runtime environment startup validation, and observable
+  error-boundary behavior.
 
 ### Fixed
 

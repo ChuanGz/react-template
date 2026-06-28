@@ -41,6 +41,9 @@ Validate unit, component, and end-to-end testing; bundle limits; dependency and
 security controls; accessibility; runtime error reporting boundaries; and
 production deployment behavior.
 
+Status: implemented with production smoke and accessibility tests, bundle and
+dependency gates, startup environment validation, and observable error handling.
+
 ## M6 — Extended Application Capabilities
 
 Add optional TanStack Query, TanStack Table, React Hook Form with Zod, themes,

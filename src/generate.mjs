@@ -147,6 +147,7 @@ export async function generate(target, input = {}) {
     ...(o.errorBoundary
       ? ["import { ErrorBoundary } from './app/ErrorBoundary'"]
       : []),
+    ...(o.envValidation ? ["import './lib/env'"] : []),
   ]
   let tree = '<App />'
   if (o.router) tree = `<BrowserRouter>${tree}</BrowserRouter>`
@@ -177,12 +178,12 @@ export async function generate(target, input = {}) {
   if (o.layout !== 'none')
     files.set(
       'src/app/Layout.tsx',
-      `import type { ReactNode } from 'react'\nexport function Layout({ children }: { children: ReactNode }) { return <${o.layout === 'app-shell' ? 'div className="app-shell"' : 'main'}>{children}</${o.layout === 'app-shell' ? 'div' : 'main'}> }\n`,
+      `import type { ReactNode } from 'react'\nexport function Layout({ children }: { children: ReactNode }) { return <main${o.layout === 'app-shell' ? ' className="app-shell"' : ''}>{children}</main> }\n`,
     )
   if (o.errorBoundary)
     files.set(
       'src/app/ErrorBoundary.tsx',
-      'import { Component, type ErrorInfo, type ReactNode } from \'react\'\nexport class ErrorBoundary extends Component<{children:ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return{failed:true}}componentDidCatch(error:Error,info:ErrorInfo){console.error(error,info)}render(){return this.state.failed?<main role="alert"><h1>Something went wrong</h1></main>:this.props.children}}\n',
+      'import { Component, type ErrorInfo, type ReactNode } from \'react\'\ntype Props={children:ReactNode;onError?:(error:Error,info:ErrorInfo)=>void}\nexport class ErrorBoundary extends Component<Props,{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return{failed:true}}componentDidCatch(error:Error,info:ErrorInfo){this.props.onError?.(error,info)}render(){return this.state.failed?<main role="alert"><h1>Something went wrong</h1><p>Reload the page or try again.</p><button type="button" onClick={()=>this.setState({failed:false})}>Try Again</button></main>:this.props.children}}\n',
     )
   if (o.loadingState)
     files.set(

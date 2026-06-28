@@ -1,0 +1,54 @@
+name: Production readiness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  production-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Generate production fixture
+        run: node bin/create-react-template.mjs generated --shadcn=true --theme=light-dark --authentication=jwt --authorization=route --layout=app-shell --testing=component
+      - working-directory: generated
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - working-directory: generated
+        run: npm audit --omit=dev --audit-level=high
+      - working-directory: generated
+        run: npm run build
+      - run: node scripts/check-bundle.mjs generated/dist/assets 100000
+      - name: Validate production preview
+        run: |
+          cd generated
+          npm exec vite preview -- --host 127.0.0.1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+          for attempt in {1..30}; do
+            curl --fail --silent http://127.0.0.1:4173 >/dev/null && break
+            sleep 1
+          done
+          curl --fail http://127.0.0.1:4173 >/dev/null
+          cd ..
+          PREVIEW_URL=http://127.0.0.1:4173 npm exec playwright test
+
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
