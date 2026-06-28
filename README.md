@@ -6,8 +6,11 @@ unused source code, and forced frontend architecture.
 
 ## Status
 
-Version `1.0.0` provides the stable generator contract. Generated applications
-remain application-owned and should be reviewed against their deployment needs.
+Version `1.0.0` is a maintained generator baseline with automated repository,
+generated-build, accessibility, bundle, dependency, and container checks. These
+checks validate the documented configurations; they are not certification that
+every generated application is production-ready. Generated applications remain
+application-owned and require review for their deployment and security context.
 
 ## Generate an application
 

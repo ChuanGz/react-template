@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import { generate } from '../src/generate.mjs'
+import { generate } from '../scripts/index.mjs'
+import { parseOptionFlags } from '../scripts/parser.mjs'
 
 const [target = 'react-app', ...flags] = process.argv.slice(2)
-const entries = flags.map((flag) => flag.replace(/^--/, '').split('='))
 try {
-  const options = Object.fromEntries(entries)
+  const options = parseOptionFlags(flags)
   await generate(target, options)
   console.log(`Generated ${target}`)
 } catch (error) {

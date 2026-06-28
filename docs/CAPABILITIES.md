@@ -2,6 +2,34 @@
 
 Generated code is an application-owned baseline, not a runtime framework.
 
+## Capability matrix
+
+The [option contract](engineering/OPTION_CONTRACT.md) is the canonical matrix of
+every option, value, default, and owned behavior. The table below identifies the
+external package ownership that maintainers must keep isolated.
+
+| Selection            | Runtime package ownership                    | Generated output              |
+| -------------------- | -------------------------------------------- | ----------------------------- |
+| `state=context`      | None                                         | Context state module          |
+| `state=zustand`      | `zustand`                                    | Zustand store                 |
+| `uiLibrary=shadcn`   | Radix Slot and class utilities               | Button and `components.json`  |
+| `uiLibrary=antd`     | `antd`                                       | Ant Design button adapter     |
+| `uiLibrary=mui`      | MUI and Emotion                              | MUI button adapter            |
+| `dateTime=date-fns`  | `date-fns`                                   | Date/time helpers             |
+| `dateTime=dayjs`     | `dayjs`                                      | Date/time helpers             |
+| `utilities=standard` | None                                         | Project-owned focused helpers |
+| `utilities=lodash`   | `lodash`                                     | Narrow helper exports         |
+| `testing=unit`       | Vitest                                       | Unit test baseline            |
+| `testing=component`  | Unit packages plus Testing Library and jsdom | Component test                |
+| `testing=e2e`        | Component packages plus Playwright           | Component and E2E tests       |
+| `realtime=websocket` | None; browser API                            | Realtime client factory       |
+| `realtime=signalr`   | `@microsoft/signalr`                         | SignalR client factory        |
+| `realtime=socketio`  | `socket.io-client`                           | Socket.IO client factory      |
+
+Boolean capabilities follow the same rule: selecting `false` emits no owned
+dependency or artifact. Shared dependencies such as Zod remain when another
+enabled capability still owns them.
+
 | Capability     | Primary generated artifact       | Integration point                    |
 | -------------- | -------------------------------- | ------------------------------------ |
 | API client     | `src/lib/apiClient.ts`           | Set `VITE_API_URL`                   |

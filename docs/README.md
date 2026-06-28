@@ -9,6 +9,6 @@ Use this index by task:
 - [Prepare releases and migrations](RELEASING.md)
 - [Review normative engineering contracts](engineering/README.md)
 
-The guides describe the current generator on `main`. Until `v1.0.0`, option
-names and output may change; consult the [changelog](../CHANGELOG.md) when
-updating an existing generated application.
+The guides describe the current generator on `main`. Consult the
+[changelog](../CHANGELOG.md) and release migration notes before updating an
+existing generated application.

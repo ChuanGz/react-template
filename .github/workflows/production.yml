@@ -26,6 +26,8 @@ jobs:
       - working-directory: generated
         run: npm audit --omit=dev --audit-level=high
       - working-directory: generated
+        run: npm run typecheck
+      - working-directory: generated
         run: npm run build
       - run: node scripts/check-bundle.mjs generated/dist/assets 100000
       - name: Validate production preview

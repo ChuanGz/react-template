@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Verify release commit is on main
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+      - name: Verify tag matches package version
+        run: test "${GITHUB_REF_NAME}" = "v$(node -p "require('./package.json').version")"
+      - run: npm run quality
+      - name: Generate release fixture
+        run: node bin/create-react-template.mjs generated --testing=component
+      - working-directory: generated
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - working-directory: generated
+        run: npm run typecheck && npm run build && npm test
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --generate-notes --verify-tag

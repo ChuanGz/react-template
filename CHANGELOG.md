@@ -14,6 +14,11 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 - Capability options for date/time helpers, standard or Lodash utilities,
   cumulative end-to-end testing, and realtime clients.
 - Repository-local Markdown link validation in the quality gate.
+- Modular generator stages for CLI parsing, option validation, dependency and
+  file planning, capability templates, and filesystem writes.
+- Table-driven validation coverage for every public option and explicit
+  conflict, plus dependency ownership tests.
+- Tag-triggered release validation and GitHub release creation.
 
 ### Changed
 
@@ -22,6 +27,12 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
   alias.
 - Declared the supported Node.js range as `^20.19.0 || >=22.13.0` in both the
   generator and generated projects.
+- Added a standalone generated-project typecheck script while preserving the
+  existing build script behavior.
+- Moved canonical generator internals to scoped `scripts/` modules while
+  preserving the previous `src/` imports as compatibility re-exports.
+- Reduced `scripts/generator.mjs` to capability composition; base, UI, testing,
+  resilience, and extended templates now have independent ownership modules.
 
 ## [1.0.0] - 2026-06-28
 
