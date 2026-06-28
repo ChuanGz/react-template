@@ -15,5 +15,10 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 - M2 template philosophy, option contract, project conventions, and
   compatibility policy.
 - Explicit Vite-only support note with Webpack outside the support contract.
+- M3 CLI generator for the React, TypeScript, and Vite core with isolated
+  routing, API, styling, UI, auth, layout, resilience, environment, and testing
+  capabilities.
+- Contract tests for defaults, disabled capability absence, implications, and
+  invalid option combinations.
 
 [Unreleased]: https://github.com/ChuanGz/react-template/commits/main

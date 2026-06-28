@@ -6,9 +6,18 @@ unused source code, and forced frontend architecture.
 
 ## Status
 
-The repository foundation and M2 engineering contracts are available. The
-application generator is planned but not implemented yet. Do not use this
-repository as a production starter until the first stable release.
+The M3 application generator is available for validation. The project remains
+pre-release; review generated output before production adoption.
+
+## Generate an application
+
+```bash
+npm run generate -- my-app --tailwind=true --shadcn=true
+```
+
+Flags use `--option=value`; omitted options use the documented defaults. See
+the [option contract](docs/engineering/OPTION_CONTRACT.md) for all values and
+validation rules.
 
 ## Design direction
 

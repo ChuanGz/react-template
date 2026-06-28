@@ -1,0 +1,9 @@
+{
+  "name": "@chuangz/react-template",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": { "create-react-template": "bin/create-react-template.mjs" },
+  "scripts": { "test": "node --test", "generate": "node bin/create-react-template.mjs" },
+  "engines": { "node": ">=20.19" }
+}

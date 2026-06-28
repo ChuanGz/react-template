@@ -24,6 +24,8 @@ access, styling, UI systems, layout, authentication, authorization, environment
 validation, error handling, loading behavior, and tests only when selected by
 the option contract.
 
+Status: implemented as a pre-release generator with contract tests.
+
 ## M4 — Enterprise Features
 
 Add optional data fetching, tables, forms, validation, charts, file upload,
