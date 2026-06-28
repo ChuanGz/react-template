@@ -54,19 +54,23 @@ the base template only when their output depends on several capabilities.
 
 Current capability boundaries are deliberately small:
 
-- `router.mjs` owns router dependency and bootstrap composition;
-- `auth.mjs` owns authentication and authorization files;
-- `tailwind.mjs` owns Tailwind packages and Vite/CSS fragments;
-- `api.mjs` owns API client, mocks, environment validation, models, and query;
-- `base.mjs` owns only the package, build configuration, HTML, application
-  bootstrap, base CSS, and layout scaffold;
-- `ui.mjs` owns theme and selected UI-library artifacts;
-- `testing.mjs` owns unit, component, and E2E test artifacts;
-- `extended.mjs` owns localization, table, form, chart, upload, reusable
-  component, and page-template artifacts;
-- `presentation.mjs` owns notification and icon presentation helpers;
-- `strategies.mjs` owns mutually exclusive state, date, utility, and realtime
-  implementations.
+- `generator/capabilities/` selects router, forms, table, charts, and
+  localization templates at their independent option boundaries;
+- `templates/base/` owns the package manifest, build configuration, HTML,
+  application bootstrap, base CSS, and layout scaffold;
+- `templates/api/` owns API-client, mock, environment-validation, model, and
+  query artifacts;
+- `templates/auth/` owns authentication and authorization artifacts;
+- `templates/router/` and `templates/tailwind/` own their dependency and
+  bootstrap fragments;
+- `templates/forms/`, `templates/table/`, `templates/charts/`, and
+  `templates/localization/` own their generated feature artifacts;
+- `templates/ui/`, `templates/testing/`, `templates/resilience/`, and
+  `templates/presentation/` own their corresponding generated artifacts;
+- `templates/strategies/` owns mutually exclusive state, date, utility, and
+  realtime implementations;
+- `templates/extended/` owns upload, reusable-component, and page-template
+  artifacts that do not yet require separate selection logic.
 
 Split a capability again when it gains an independent option, dependency
 lifecycle, or integration boundary. Do not create one file per trivial template
@@ -77,8 +81,9 @@ When adding an option:
 1. Add its default and validator to `generator/validator.mjs`.
 2. Add explicit conflict rules only for combinations that cannot produce a
    correct application. Do not silently rewrite user intent.
-3. Add dependency ownership to `generator/package-json.mjs`; runtime packages belong in
-   `dependencies`, build and test tools in `devDependencies`.
+3. Add dependency ownership to `generator/package-json.mjs`; runtime packages
+   belong in `dependencies`, while build and test tools belong in
+   `devDependencies`.
 4. Add capability templates without filesystem side effects.
 5. Test every value, enabled output, disabled absence, dependency ownership, and
    at least one supported combination.

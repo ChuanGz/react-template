@@ -50,9 +50,9 @@ remain keyboard usable and expose accessible names regardless of styling choice.
 ## Testing
 
 Tests verify observable behavior rather than implementation details. Unit mode
-covers pure logic and option-contract output. Component mode additionally
-provides DOM rendering support. End-to-end testing belongs to M5 and is not an
-M3 generator option. Disabled testing emits no runner dependency or setup.
+covers pure logic. Component mode additionally provides DOM rendering support.
+E2E mode adds Playwright configuration and a browser smoke test. The levels are
+cumulative; `testing=none` emits no runner dependency, test file, or setup.
 
 ## Documentation
 

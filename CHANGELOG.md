@@ -35,10 +35,11 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
   generator and generated projects.
 - Added a standalone generated-project typecheck script while preserving the
   existing build script behavior.
-- Moved canonical generator internals to scoped `scripts/` modules while
-  preserving the previous `src/` imports as compatibility re-exports.
-- Reduced `scripts/generator.mjs` to capability composition; base, UI, testing,
-  resilience, and extended templates now have independent ownership modules.
+- Introduced scoped generator modules under `scripts/`, then moved the canonical
+  implementation to `generator/` and `templates/`. Existing `scripts/` and
+  `src/` imports remain compatibility re-exports.
+- Split base, UI, testing, resilience, forms, table, charts, localization, and
+  other capability templates into explicit ownership modules.
 
 ## [1.0.0] - 2026-06-28
 

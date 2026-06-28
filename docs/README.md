@@ -8,6 +8,7 @@ Use this index by task:
 - [Test and validate a generated project](TESTING_AND_DEPLOYMENT.md)
 - [Prepare releases and migrations](RELEASING.md)
 - [Review normative engineering contracts](engineering/README.md)
+- [Review completed and future delivery milestones](../ROADMAP.md)
 
 The guides describe the current generator on `main`. Consult the
 [changelog](../CHANGELOG.md) and release migration notes before updating an

@@ -74,11 +74,12 @@ project has this shape:
 
 ```text
 my-app/
-├── .github/
-├── public/
+├── e2e/                  # only with testing=e2e
 ├── src/
-├── tests/
+├── components.json       # only with uiLibrary=shadcn
+├── index.html
 ├── package.json
+├── tsconfig.json
 └── vite.config.ts
 ```
 

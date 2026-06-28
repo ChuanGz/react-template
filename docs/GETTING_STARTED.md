@@ -3,7 +3,9 @@
 ## Prerequisites
 
 - Node.js `20.19` or newer, `22.13` or newer, or Node.js `24`.
-- npm available on `PATH`.
+- npm available on `PATH` to install this repository from its committed
+  `package-lock.json`.
+- pnpm available on `PATH` for the primary generated-application workflow.
 
 ## Generate the default project
 
@@ -13,8 +15,8 @@ From this repository:
 npm ci
 npm run generate -- my-app
 cd my-app
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Open the URL printed by Vite. The default includes routing, an API client, a
@@ -25,8 +27,8 @@ capabilities.
 ## Verify before development
 
 ```bash
-npm run build
-npm test
+pnpm run build
+pnpm test
 ```
 
 Both commands must pass. If generation rejects an option combination, change
@@ -35,8 +37,10 @@ files are written.
 
 ## Generate a minimal project
 
+From the template repository root:
+
 ```bash
-npm run generate -- minimal-app \
+pnpm run generate -- minimal-app \
   --router=false \
   --apiClient=false \
   --layout=none \

@@ -5,14 +5,15 @@
 Run the scripts present in the generated `package.json`:
 
 ```bash
-npm run build
-npm test
+pnpm run build
+pnpm test
 ```
 
 Projects generated with `testing=none` intentionally have no test script.
 Component mode uses Vitest, jsdom, and Testing Library; unit mode uses Vitest
-without browser emulation. End-to-end and accessibility smoke tests validate
-the repository's max fixture in CI rather than adding Playwright to every app.
+without browser emulation. `testing=e2e` also generates Playwright configuration
+and a browser smoke test. Repository CI runs an additional accessibility smoke
+test against a generated production fixture.
 
 ## Environment configuration
 
@@ -22,7 +23,7 @@ values to browser code, so never place secrets in them.
 
 ## Static deployment
 
-`npm run build` writes the deployable site to `dist/`. Configure the hosting
+`pnpm run build` writes the deployable site to `dist/`. Configure the hosting
 platform to serve `index.html` for unknown routes when the router is enabled.
 Validate the deployed artifact by loading a deep link directly, not only `/`.
 
