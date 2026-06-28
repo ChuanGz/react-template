@@ -80,3 +80,41 @@ test('application layouts provide a main landmark', async () => {
   const layout = await readFile(join(root, 'src/app/Layout.tsx'), 'utf8')
   assert.match(layout, /<main className="app-shell">/)
 })
+
+test('M6 capabilities remain absent by default', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  const result = await generate(root)
+  assert(
+    !result.files.some((file) =>
+      /DataTable|ExampleForm|SimpleChart|FileUpload|ListPage|apiModels/.test(
+        file,
+      ),
+    ),
+  )
+})
+
+test('M6 capabilities emit only when selected', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  const result = await generate(root, {
+    query: true,
+    table: true,
+    forms: true,
+    localization: true,
+    charts: true,
+    fileUpload: true,
+    reusableComponents: true,
+    pageTemplates: true,
+    apiModels: true,
+  })
+  for (const file of [
+    'src/lib/queryClient.ts',
+    'src/components/DataTable.tsx',
+    'src/components/ExampleForm.tsx',
+    'src/components/SimpleChart.tsx',
+    'src/components/FileUpload.tsx',
+    'src/components/EmptyState.tsx',
+    'src/pages/ListPage.tsx',
+    'src/lib/apiModels.ts',
+  ])
+    assert(result.files.includes(file))
+})

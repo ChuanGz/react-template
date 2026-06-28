@@ -51,6 +51,9 @@ localization, charts, file upload, reusable components, page templates, and API
 contracts such as base response, pagination, and error models. Every capability
 must preserve dependency and source isolation when disabled.
 
+Status: implemented as isolated, opt-in generator capabilities with default
+absence and max-option build coverage.
+
 ## M7 — Documentation and Adoption
 
 Publish getting-started, CLI, option, structure, component, testing, deployment,

@@ -11,6 +11,15 @@ export const defaults = Object.freeze({
   loadingState: true,
   envValidation: true,
   testing: 'unit',
+  query: false,
+  table: false,
+  forms: false,
+  localization: false,
+  charts: false,
+  fileUpload: false,
+  reusableComponents: false,
+  pageTemplates: false,
+  apiModels: false,
 })
 
 const enums = {
@@ -28,6 +37,15 @@ const booleans = new Set([
   'errorBoundary',
   'loadingState',
   'envValidation',
+  'query',
+  'table',
+  'forms',
+  'localization',
+  'charts',
+  'fileUpload',
+  'reusableComponents',
+  'pageTemplates',
+  'apiModels',
 ])
 
 export function resolveOptions(input = {}) {

@@ -2,20 +2,29 @@
 
 ## Options
 
-| Option           | Values                        | Default | Ownership                                |
-| ---------------- | ----------------------------- | ------- | ---------------------------------------- |
-| `router`         | `true`, `false`               | `true`  | Routes and router bootstrap              |
-| `apiClient`      | `true`, `false`               | `true`  | API client and service boundary          |
-| `tailwind`       | `true`, `false`               | `false` | Tailwind packages and configuration      |
-| `shadcn`         | `true`, `false`               | `false` | shadcn/ui setup and generated primitives |
-| `theme`          | `none`, `light-dark`          | `none`  | Theme state and switching                |
-| `authentication` | `none`, `jwt`, `oidc`         | `none`  | Identity baseline                        |
-| `authorization`  | `none`, `route`, `permission` | `none`  | Access-control baseline                  |
-| `layout`         | `none`, `basic`, `app-shell`  | `basic` | Application composition shell            |
-| `errorBoundary`  | `true`, `false`               | `true`  | Render failure boundary                  |
-| `loadingState`   | `true`, `false`               | `true`  | Shared loading baseline                  |
-| `envValidation`  | `true`, `false`               | `true`  | Runtime environment validation           |
-| `testing`        | `none`, `unit`, `component`   | `unit`  | Test dependencies, setup, and examples   |
+| Option               | Values                        | Default | Ownership                                 |
+| -------------------- | ----------------------------- | ------- | ----------------------------------------- |
+| `router`             | `true`, `false`               | `true`  | Routes and router bootstrap               |
+| `apiClient`          | `true`, `false`               | `true`  | API client and service boundary           |
+| `tailwind`           | `true`, `false`               | `false` | Tailwind packages and configuration       |
+| `shadcn`             | `true`, `false`               | `false` | shadcn/ui setup and generated primitives  |
+| `theme`              | `none`, `light-dark`          | `none`  | Theme state and switching                 |
+| `authentication`     | `none`, `jwt`, `oidc`         | `none`  | Identity baseline                         |
+| `authorization`      | `none`, `route`, `permission` | `none`  | Access-control baseline                   |
+| `layout`             | `none`, `basic`, `app-shell`  | `basic` | Application composition shell             |
+| `errorBoundary`      | `true`, `false`               | `true`  | Render failure boundary                   |
+| `loadingState`       | `true`, `false`               | `true`  | Shared loading baseline                   |
+| `envValidation`      | `true`, `false`               | `true`  | Runtime environment validation            |
+| `testing`            | `none`, `unit`, `component`   | `unit`  | Test dependencies, setup, and examples    |
+| `query`              | `true`, `false`               | `false` | TanStack Query provider and client        |
+| `table`              | `true`, `false`               | `false` | TanStack Table reusable table             |
+| `forms`              | `true`, `false`               | `false` | React Hook Form and Zod baseline          |
+| `localization`       | `true`, `false`               | `false` | i18next initialization                    |
+| `charts`             | `true`, `false`               | `false` | Recharts baseline chart                   |
+| `fileUpload`         | `true`, `false`               | `false` | Accessible native upload control          |
+| `reusableComponents` | `true`, `false`               | `false` | Shared empty-state baseline               |
+| `pageTemplates`      | `true`, `false`               | `false` | List and detail page composition          |
+| `apiModels`          | `true`, `false`               | `false` | Response, pagination, and error contracts |
 
 ## Validation rules
 

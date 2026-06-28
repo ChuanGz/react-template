@@ -26,6 +26,8 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 - M5 browser smoke and accessibility tests, JavaScript bundle budget,
   dependency review, runtime environment startup validation, and observable
   error-boundary behavior.
+- M6 opt-in query, table, form, localization, chart, upload, reusable component,
+  page-template, and API-model capabilities.
 
 ### Fixed
 
