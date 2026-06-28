@@ -21,4 +21,9 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 - Contract tests for defaults, disabled capability absence, implications, and
   invalid option combinations.
 
+### Fixed
+
+- Generated component tests now configure Vitest matchers and router context,
+  allowing max-option projects to build and test successfully.
+
 [Unreleased]: https://github.com/ChuanGz/react-template/commits/main

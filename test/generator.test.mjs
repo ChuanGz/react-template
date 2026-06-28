@@ -25,3 +25,12 @@ test('shadcn enables tailwind and invalid authorization fails', () => {
   assert.equal(resolveOptions({ shadcn: true }).options.tailwind, true)
   assert.throws(() => resolveOptions({ authorization: 'permission' }), /requires authentication/)
 })
+
+test('component test output configures Vitest and router context', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  await generate(root, { testing: 'component' })
+  const testFile = await readFile(join(root, 'src/App.test.tsx'), 'utf8')
+  assert.match(testFile, /jest-dom\/vitest/)
+  assert.match(testFile, /MemoryRouter/)
+  assert.match(testFile, /import \{ expect,test \} from 'vitest'/)
+})
