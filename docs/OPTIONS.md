@@ -28,6 +28,7 @@ configuration, and tests. Defaults produce a small but runnable application.
 | ------------------ | ------------------ | ------------------------------- |
 | `router=true|false` (`true`) | `true` adds client-side route declarations and router bootstrap. `false` emits no routing dependency or route structure. | Use `false` for a single-screen application or when the project will install its own router. |
 | `apiClient=true|false` (`true`) | `true` adds the HTTP client and service boundary. It does not define a backend API. | Use `false` for a client-only application or when another API client architecture already exists. |
+| `state=none|context|zustand` (`none`) | `none` emits no shared application state; `context` adds React Context for simple shared state; `zustand` adds lightweight global state management. | Use `context` for small, stable state shared across a limited tree. Use `zustand` when multiple features need frequently updated global client state. Remote server state belongs in `query`, not this option. |
 | `layout=none|basic|app-shell` (`basic`) | `none` emits no shared layout; `basic` adds minimal page composition; `app-shell` adds routed application chrome. | Use `none` for full layout ownership. Use `app-shell` for multi-page application navigation; it requires routing. |
 | `envValidation=true|false` (`true`) | `true` validates required runtime environment values at startup and reports invalid configuration early. | Use `false` only when the application has no runtime configuration or provides equivalent validation. |
 
@@ -37,6 +38,8 @@ configuration, and tests. Defaults produce a small but runnable application.
 | ------------------ | ------------------ | ------------------------------- |
 | `tailwind=true|false` (`false`) | `true` adds Tailwind dependencies, configuration, and style entry points. `false` keeps plain CSS valid. | Use `true` when utility-first styling is desired. Selecting shadcn/ui enables it automatically. |
 | `uiLibrary=none|shadcn|antd|mui` (`none`) | Generates integration, dependencies, components, and tests only for the selected library. `none` stays library-neutral. | Use `shadcn` for project-owned customizable components, `antd` for rapid enterprise and CRUD delivery, or `mui` for Material Design and convention-led corporate products. |
+| `icons=lucide|none` (`lucide`) | `lucide` adds the recommended shared icon library; `none` emits no icon dependency or icon abstraction. | Use `none` for text-only interfaces or when the application will supply another icon system. Icons must retain accessible labels where they convey meaning. |
+| `notifications=true|false` (`false`) | `true` adds shared infrastructure for success, warning, information, and error messages. It does not define product-specific copy or error-handling policy. | Enable when user actions or background operations require consistent transient feedback. |
 | `theme=none|light-dark` (`none`) | `light-dark` adds theme state, persistence, and switching; `none` emits no theme controller. | Use `light-dark` when both color modes are product requirements. It works without Tailwind through framework-neutral CSS. |
 | `reusableComponents=true|false` (`false`) | `true` adds the shared component baseline, currently an accessible empty state. | Use `true` when the project wants common UI composition examples without selecting a full UI library. |
 
@@ -54,6 +57,7 @@ configuration, and tests. Defaults produce a small but runnable application.
 | `errorBoundary=true|false` (`true`) | `true` adds a controlled fallback for unexpected React render failures. | Use `false` only when the application supplies an equivalent top-level boundary. |
 | `loadingState=true|false` (`true`) | `true` adds a shared, accessible loading-state baseline for asynchronous UI. | Use `false` when the application has its own loading-state system. |
 | `query=true|false` (`false`) | `true` adds TanStack Query dependencies, provider, and client setup for remote server state. | Enable for cached fetching, synchronization, retries, or request-state management; it is unnecessary for purely local state. |
+| `mockApi=true|false` (`false`) | `true` adds local API mocking for frontend-first development without requiring available backend services. Production requests remain unchanged. | Enable when UI development, tests, or demos must proceed before backend endpoints are available. Mock contracts must stay aligned with the real API. |
 | `apiModels=true|false` (`false`) | `true` adds typed response, pagination, and error contracts. It does not generate endpoint-specific domain models. | Enable when the application consumes structured APIs and benefits from shared transport contracts. |
 
 ### Feature baselines

@@ -6,8 +6,11 @@
 | -------------------- | ----------------------------- | ------- | ----------------------------------------- |
 | `router`             | `true`, `false`               | `true`  | Routes and router bootstrap               |
 | `apiClient`          | `true`, `false`               | `true`  | API client and service boundary           |
+| `state`              | `none`, `context`, `zustand`  | `none`  | Shared client-side state strategy         |
 | `tailwind`           | `true`, `false`               | `false` | Tailwind packages and configuration       |
 | `uiLibrary`          | `none`, `shadcn`, `antd`, `mui` | `none` | Selected UI library setup and components  |
+| `icons`              | `lucide`, `none`              | `lucide` | Shared icon library                       |
+| `notifications`      | `true`, `false`               | `false` | Shared notification infrastructure        |
 | `theme`              | `none`, `light-dark`          | `none`  | Theme state and switching                 |
 | `authentication`     | `none`, `jwt`, `oidc`         | `none`  | Identity baseline                         |
 | `authorization`      | `none`, `route`, `permission` | `none`  | Access-control baseline                   |
@@ -17,6 +20,7 @@
 | `envValidation`      | `true`, `false`               | `true`  | Runtime environment validation            |
 | `testing`            | `none`, `unit`, `component`   | `unit`  | Test dependencies, setup, and examples    |
 | `query`              | `true`, `false`               | `false` | TanStack Query provider and client        |
+| `mockApi`            | `true`, `false`               | `false` | Local API mocking                         |
 | `table`              | `true`, `false`               | `false` | TanStack Table reusable table             |
 | `forms`              | `true`, `false`               | `false` | React Hook Form and Zod baseline          |
 | `localization`       | `true`, `false`               | `false` | i18next initialization                    |
