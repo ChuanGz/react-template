@@ -22,13 +22,23 @@ export async function generate(target, input = {}) {
     deps.tailwindcss = '^4.3.1'
     deps['@tailwindcss/vite'] = '^4.3.1'
   }
-  if (o.shadcn)
+  if (o.uiLibrary === 'shadcn')
     Object.assign(deps, {
       '@radix-ui/react-slot': '^1.2.4',
       'class-variance-authority': '^0.7.1',
       clsx: '^2.1.1',
       'tailwind-merge': '^3.5.0',
     })
+  if (o.uiLibrary === 'antd') deps.antd = '^5.24.0'
+  if (o.uiLibrary === 'mui')
+    Object.assign(deps, {
+      '@mui/material': '^7.0.0',
+      '@emotion/react': '^11.14.0',
+      '@emotion/styled': '^11.14.0',
+    })
+  if (o.icons === 'lucide') deps['lucide-react'] = '^0.468.0'
+  if (o.state === 'zustand') deps.zustand = '^5.0.0'
+  if (o.mockApi) deps.msw = '^2.7.0'
   if (o.envValidation) deps.zod = '^4.3.6'
   if (o.query) deps['@tanstack/react-query'] = '^5.101.2'
   if (o.table) deps['@tanstack/react-table'] = '^8.21.3'
@@ -74,6 +84,13 @@ export async function generate(target, input = {}) {
             'class-variance-authority',
             'clsx',
             'tailwind-merge',
+            'antd',
+            '@mui/material',
+            '@emotion/react',
+            '@emotion/styled',
+            'lucide-react',
+            'zustand',
+            'msw',
             'zod',
             '@tanstack/react-query',
             '@tanstack/react-table',
@@ -96,6 +113,13 @@ export async function generate(target, input = {}) {
               'class-variance-authority',
               'clsx',
               'tailwind-merge',
+              'antd',
+              '@mui/material',
+              '@emotion/react',
+              '@emotion/styled',
+              'lucide-react',
+              'zustand',
+              'msw',
               'zod',
               '@tanstack/react-query',
               '@tanstack/react-table',
@@ -223,6 +247,36 @@ export async function generate(target, input = {}) {
       'src/app/Layout.tsx',
       `import type { ReactNode } from 'react'\nexport function Layout({ children }: { children: ReactNode }) { return <><a className="skip-link" href="#main-content">Skip to Content</a><main id="main-content"${o.layout === 'app-shell' ? ' className="app-shell"' : ''}>{children}</main></> }\n`,
     )
+  if (o.state === 'context')
+    files.set(
+      'src/state/AppState.tsx',
+      "import { createContext,useContext,useState,type ReactNode } from 'react'\ntype AppState={ready:boolean;setReady:(ready:boolean)=>void}\nconst Context=createContext<AppState|null>(null)\nexport function AppStateProvider({children}:{children:ReactNode}){const [ready,setReady]=useState(false);return <Context value={{ready,setReady}}>{children}</Context>}\nexport function useAppState(){const value=useContext(Context);if(!value)throw new Error('useAppState requires AppStateProvider');return value}\n",
+    )
+  if (o.state === 'zustand')
+    files.set(
+      'src/state/appStore.ts',
+      "import { create } from 'zustand'\ntype AppState={ready:boolean;setReady:(ready:boolean)=>void}\nexport const useAppStore=create<AppState>(set=>({ready:false,setReady:ready=>set({ready})}))\n",
+    )
+  if (o.notifications)
+    files.set(
+      'src/components/notifications.ts',
+      "export type NotificationKind='success'|'warning'|'info'|'error'\nexport interface NotificationMessage{id:string;kind:NotificationKind;message:string}\nexport const createNotification=(kind:NotificationKind,message:string):NotificationMessage=>({id:crypto.randomUUID(),kind,message})\n",
+    )
+  if (o.icons === 'lucide')
+    files.set(
+      'src/components/Icon.tsx',
+      "export { Check,Info,TriangleAlert,XCircle } from 'lucide-react'\n",
+    )
+  if (o.mockApi) {
+    files.set(
+      'src/mocks/handlers.ts',
+      "import { http,HttpResponse } from 'msw'\nexport const handlers=[http.get('/api/health',()=>HttpResponse.json({status:'ok'}))]\n",
+    )
+    files.set(
+      'src/mocks/browser.ts',
+      "import { setupWorker } from 'msw/browser'\nimport { handlers } from './handlers'\nexport const mockWorker=setupWorker(...handlers)\n",
+    )
+  }
   if (o.errorBoundary)
     files.set(
       'src/app/ErrorBoundary.tsx',
@@ -318,12 +372,12 @@ export async function generate(target, input = {}) {
       "import type { ReactNode } from 'react'\nexport function DetailPage({title,children}:{title:string;children:ReactNode}){return <article><h1>{title}</h1>{children}</article>}\n",
     )
   }
-  if (o.shadcn)
+  if (o.uiLibrary === 'shadcn')
     files.set(
       'src/components/ui/Button.tsx',
       "import { Slot } from '@radix-ui/react-slot'\nimport type { ButtonHTMLAttributes } from 'react'\nexport function Button({asChild=false,...props}:ButtonHTMLAttributes<HTMLButtonElement>&{asChild?:boolean}){const Comp=asChild?Slot:'button';return <Comp className=\"rounded bg-blue-600 px-4 py-2 text-white\" {...props}/>}\n",
     )
-  if (o.shadcn)
+  if (o.uiLibrary === 'shadcn')
     files.set(
       'components.json',
       json({
@@ -334,6 +388,13 @@ export async function generate(target, input = {}) {
         tailwind: { css: 'src/index.css', baseColor: 'neutral' },
         aliases: { components: './src/components', ui: './src/components/ui' },
       }),
+    )
+  if (o.uiLibrary === 'antd')
+    files.set('src/components/ui/Button.tsx', "export { Button } from 'antd'\n")
+  if (o.uiLibrary === 'mui')
+    files.set(
+      'src/components/ui/Button.tsx',
+      "export { Button } from '@mui/material'\n",
     )
   const componentTest = `import '@testing-library/jest-dom/vitest'\nimport { render,screen } from '@testing-library/react'\nimport { expect,test } from 'vitest'\n${o.router ? "import { MemoryRouter } from 'react-router-dom'\n" : ''}import { App } from './App'\ntest('renders heading',()=>{render(${o.router ? '<MemoryRouter><App /></MemoryRouter>' : '<App />'});expect(screen.getByRole('heading',{level:1,name:'React Template'})).toBeInTheDocument()})\n`
   if (o.testing !== 'none')

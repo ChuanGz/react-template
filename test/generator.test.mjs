@@ -34,11 +34,33 @@ test('disabled capabilities leave no owned files', async () => {
 })
 
 test('shadcn enables tailwind and invalid authorization fails', () => {
-  assert.equal(resolveOptions({ shadcn: true }).options.tailwind, true)
+  assert.equal(resolveOptions({ uiLibrary: 'shadcn' }).options.tailwind, true)
   assert.throws(
     () => resolveOptions({ authorization: 'permission' }),
     /requires authentication/,
   )
+})
+
+test('new application capabilities are isolated and selectable', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  const result = await generate(root, {
+    state: 'zustand',
+    uiLibrary: 'mui',
+    icons: 'none',
+    notifications: true,
+    mockApi: true,
+  })
+  const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
+  assert.equal(pkg.dependencies.zustand !== undefined, true)
+  assert.equal(pkg.dependencies['@mui/material'] !== undefined, true)
+  assert.equal(pkg.dependencies['lucide-react'], undefined)
+  for (const file of [
+    'src/state/appStore.ts',
+    'src/components/notifications.ts',
+    'src/mocks/browser.ts',
+    'src/components/ui/Button.tsx',
+  ])
+    assert(result.files.includes(file))
 })
 
 test('component test output configures Vitest and router context', async () => {

@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "quality": "npm run lint && npm run format:check && npm test"
+    "docs:links": "node scripts/check-links.mjs",
+    "quality": "npm run lint && npm run format:check && npm run docs:links && npm test"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",

@@ -12,7 +12,7 @@ remain application-owned and should be reviewed against their deployment needs.
 ## Generate an application
 
 ```bash
-npm run generate -- my-app --tailwind=true --shadcn=true
+pnpm run generate -- my-app --uiLibrary=shadcn
 ```
 
 Flags use `--option=value`; omitted options use the documented defaults. See

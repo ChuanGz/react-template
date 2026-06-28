@@ -25,6 +25,11 @@ Prioritize long-term stability and maintainability over adopting the latest
 tools and frameworks. Prefer mature, well-supported tooling; do not select
 technology based on short-lived benchmarks or trends.
 
+Options represent application capabilities, not implementation details. An
+option must describe an outcome a generated application needs. Library and
+framework names are values chosen behind that capability only when users must
+make that choice explicitly.
+
 ## Package manager decision
 
 pnpm is the primary package manager and template default. npm is supported.

@@ -20,7 +20,7 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - name: Generate production fixture
-        run: node bin/create-react-template.mjs generated --shadcn=true --theme=light-dark --authentication=jwt --authorization=route --layout=app-shell --testing=component
+        run: node bin/create-react-template.mjs generated --uiLibrary=shadcn --theme=light-dark --authentication=jwt --authorization=route --layout=app-shell --testing=component
       - working-directory: generated
         run: npm install --ignore-scripts --no-audit --no-fund
       - working-directory: generated

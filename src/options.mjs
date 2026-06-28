@@ -1,8 +1,11 @@
 export const defaults = Object.freeze({
   router: true,
   apiClient: true,
+  state: 'none',
   tailwind: false,
-  shadcn: false,
+  uiLibrary: 'none',
+  icons: 'lucide',
+  notifications: false,
   theme: 'none',
   authentication: 'none',
   authorization: 'none',
@@ -12,6 +15,7 @@ export const defaults = Object.freeze({
   envValidation: true,
   testing: 'unit',
   query: false,
+  mockApi: false,
   table: false,
   forms: false,
   localization: false,
@@ -23,6 +27,9 @@ export const defaults = Object.freeze({
 })
 
 const enums = {
+  state: ['none', 'context', 'zustand'],
+  uiLibrary: ['none', 'shadcn', 'antd', 'mui'],
+  icons: ['lucide', 'none'],
   theme: ['none', 'light-dark'],
   authentication: ['none', 'jwt', 'oidc'],
   authorization: ['none', 'route', 'permission'],
@@ -33,11 +40,12 @@ const booleans = new Set([
   'router',
   'apiClient',
   'tailwind',
-  'shadcn',
+  'notifications',
   'errorBoundary',
   'loadingState',
   'envValidation',
   'query',
+  'mockApi',
   'table',
   'forms',
   'localization',
@@ -61,7 +69,7 @@ export function resolveOptions(input = {}) {
   for (const [key, allowed] of Object.entries(enums))
     if (!allowed.includes(value[key]))
       throw new Error(`${key} must be one of: ${allowed.join(', ')}`)
-  if (value.shadcn) value.tailwind = true
+  if (value.uiLibrary === 'shadcn') value.tailwind = true
   if (value.authorization !== 'none' && value.authentication === 'none')
     throw new Error('authorization requires authentication')
   if (value.authorization === 'route' && !value.router)
