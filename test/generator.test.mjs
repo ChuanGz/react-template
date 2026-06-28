@@ -41,6 +41,13 @@ test('shadcn enables tailwind and invalid authorization fails', () => {
   )
 })
 
+test('legacy shadcn option remains compatible with a warning', () => {
+  const result = resolveOptions({ shadcn: true })
+  assert.equal(result.options.uiLibrary, 'shadcn')
+  assert.equal(result.options.tailwind, true)
+  assert.match(result.warnings[0], /deprecated/)
+})
+
 test('new application capabilities are isolated and selectable', async () => {
   const root = await mkdtemp(join(tmpdir(), 'react-template-'))
   const result = await generate(root, {

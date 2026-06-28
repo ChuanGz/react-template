@@ -7,6 +7,20 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Capability options for client state, UI libraries, icons, notifications, and
+  local API mocking, with isolated generated dependencies and source.
+- Repository-local Markdown link validation in the quality gate.
+
+### Changed
+
+- Replaced the implementation-specific `shadcn` option with the capability-based
+  `uiLibrary` option. The previous input remains as a deprecated compatibility
+  alias.
+- Declared the supported Node.js range as `^20.19.0 || >=22.13.0` in both the
+  generator and generated projects.
+
 ## [1.0.0] - 2026-06-28
 
 ### Added

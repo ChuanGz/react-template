@@ -69,6 +69,7 @@ export async function generate(target, input = {}) {
       private: true,
       version: '0.0.0',
       type: 'module',
+      engines: { node: '^20.19.0 || >=22.13.0' },
       scripts: {
         dev: 'vite',
         build: 'tsc --noEmit && vite build',

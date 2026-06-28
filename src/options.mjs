@@ -57,9 +57,22 @@ const booleans = new Set([
 ])
 
 export function resolveOptions(input = {}) {
-  for (const key of Object.keys(input))
+  const normalized = { ...input }
+  let usedLegacyShadcn = false
+  if ('shadcn' in normalized) {
+    if ('uiLibrary' in normalized)
+      throw new Error('shadcn cannot be combined with uiLibrary')
+    if (![true, false, 'true', 'false'].includes(normalized.shadcn))
+      throw new Error('shadcn must be true or false')
+    normalized.uiLibrary = [true, 'true'].includes(normalized.shadcn)
+      ? 'shadcn'
+      : 'none'
+    delete normalized.shadcn
+    usedLegacyShadcn = true
+  }
+  for (const key of Object.keys(normalized))
     if (!(key in defaults)) throw new Error(`Unknown option: ${key}`)
-  const value = { ...defaults, ...input }
+  const value = { ...defaults, ...normalized }
   for (const key of booleans) {
     if (value[key] === 'true') value[key] = true
     if (value[key] === 'false') value[key] = false
@@ -76,9 +89,10 @@ export function resolveOptions(input = {}) {
     throw new Error('route authorization requires router')
   if (!value.router && value.layout === 'app-shell')
     throw new Error('app-shell requires router')
-  const warnings =
-    value.authentication !== 'none' && !value.apiClient
-      ? ['authentication normally requires apiClient']
-      : []
+  const warnings = []
+  if (value.authentication !== 'none' && !value.apiClient)
+    warnings.push('authentication normally requires apiClient')
+  if (usedLegacyShadcn)
+    warnings.push('shadcn is deprecated; use uiLibrary=shadcn')
   return { options: value, warnings }
 }
