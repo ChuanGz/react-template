@@ -7,14 +7,10 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-- Separated canonical generator orchestration (`generator/`), generated file
-  templates (`templates/`), and repository tests (`tests/`) while retaining
-  compatibility re-exports for existing `scripts/` and `src/` imports.
-- Added independent forms, table, charts, and localization capability/template
-  boundaries plus a generated-application manifest contract test.
-
 ### Added
 
+- Independent forms, table, charts, and localization capability/template
+  boundaries plus a generated-application manifest contract test.
 - Capability options for client state, UI libraries, icons, notifications, and
   local API mocking, with isolated generated dependencies and source.
 - Capability options for date/time helpers, standard or Lodash utilities,
@@ -28,6 +24,9 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Separated canonical generator orchestration (`generator/`), generated file
+  templates (`templates/`), and repository tests (`tests/`) while retaining
+  compatibility re-exports for existing `scripts/` and `src/` imports.
 - Replaced the implementation-specific `shadcn` option with the capability-based
   `uiLibrary` option. The previous input remains as a deprecated compatibility
   alias.
@@ -40,6 +39,12 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
   `src/` imports remain compatibility re-exports.
 - Split base, UI, testing, resilience, forms, table, charts, localization, and
   other capability templates into explicit ownership modules.
+
+### Fixed
+
+- Upgraded Markdown workflow actions from Node.js 20 to Node.js 24 runtimes.
+- Added repository-local Markdown linting and configured release-scoped
+  changelog headings so CI failures are caught before a pull request is pushed.
 
 ## [1.0.0] - 2026-06-28
 
