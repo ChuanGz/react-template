@@ -7,7 +7,7 @@
 | `router`             | `true`, `false`               | `true`  | Routes and router bootstrap               |
 | `apiClient`          | `true`, `false`               | `true`  | API client and service boundary           |
 | `tailwind`           | `true`, `false`               | `false` | Tailwind packages and configuration       |
-| `shadcn`             | `true`, `false`               | `false` | shadcn/ui setup and generated primitives  |
+| `uiLibrary`          | `none`, `shadcn`, `antd`, `mui` | `none` | Selected UI library setup and components  |
 | `theme`              | `none`, `light-dark`          | `none`  | Theme state and switching                 |
 | `authentication`     | `none`, `jwt`, `oidc`         | `none`  | Identity baseline                         |
 | `authorization`      | `none`, `route`, `permission` | `none`  | Access-control baseline                   |
@@ -28,7 +28,7 @@
 
 ## Validation rules
 
-- `shadcn=true` requires and automatically enables `tailwind=true`.
+- `uiLibrary=shadcn` requires and automatically enables `tailwind=true`.
 - `authorization!=none` requires `authentication!=none`.
 - `authorization=route` requires `router=true`.
 - `router=false` rejects `layout=app-shell`.
@@ -38,7 +38,7 @@
   enabling Tailwind is a recommendation, not a requirement.
 
 Validation occurs before generation. Automatic implication is limited to
-`shadcn` enabling Tailwind; other invalid combinations fail with an actionable
+`uiLibrary=shadcn` enabling Tailwind; other invalid combinations fail with an actionable
 message so user intent is not silently changed.
 
 ## Capability isolation
@@ -47,3 +47,5 @@ Each capability owns a declared set of dependencies, files, configuration
 fragments, and tests. Contract tests must prove both presence when enabled and
 absence when disabled. Shared files may receive deterministic fragments, but a
 disabled option must not leave imports, scripts, empty directories, or comments.
+For `uiLibrary`, only the selected library's dependencies, source code,
+configuration, and tests may be emitted.

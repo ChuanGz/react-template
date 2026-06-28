@@ -4,8 +4,8 @@ Pass options after the target directory using `--option=value`. Omitted options
 use defaults. Boolean values must be `true` or `false`.
 
 ```bash
-npm run generate -- enterprise-app \
-  --shadcn=true \
+pnpm run generate -- enterprise-app \
+  --uiLibrary=shadcn \
   --authentication=oidc \
   --authorization=route \
   --testing=component \
@@ -19,7 +19,7 @@ The complete value/default table and validation rules live in the normative
 
 ## Important combinations
 
-- `shadcn=true` automatically enables Tailwind.
+- `uiLibrary=shadcn` automatically enables Tailwind.
 - Authorization requires an authentication strategy.
 - Route authorization requires the router.
 - `app-shell` requires the router.

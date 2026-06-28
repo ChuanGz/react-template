@@ -19,6 +19,61 @@ The generator must:
 - prefer explicit generated code over hidden runtime abstraction;
 - avoid prescribing dashboard, state-management, or domain architecture.
 
+## Engineering principle
+
+Prioritize long-term stability and maintainability over adopting the latest
+tools and frameworks. Prefer mature, well-supported tooling; do not select
+technology based on short-lived benchmarks or trends.
+
+## Package manager decision
+
+pnpm is the primary package manager and template default. npm is supported.
+Yarn and Bun are community-level options.
+
+| Support level | Package manager |
+| ------------- | --------------- |
+| Primary       | pnpm            |
+| Supported     | npm             |
+| Community     | yarn            |
+| Community     | bun             |
+
+pnpm provides deterministic dependency resolution, fast installation,
+disk-efficient storage, strict dependency management, excellent monorepo
+support, a mature ecosystem, and enterprise-friendly workflows. Maintenance
+must validate pnpm first and npm when package-manager compatibility is affected.
+Yarn and Bun support may be improved through community contributions, provided
+the primary and supported paths remain stable.
+
+## UI library decision
+
+The default recommendation is shadcn/ui with Radix UI and Tailwind CSS. Projects
+own the generated components, avoiding vendor lock-in and enabling deep
+customization. Accessible Radix primitives and the Tailwind ecosystem provide a
+maintainable base for custom design systems while developing practical skills
+in composition, accessibility, design tokens, controlled and uncontrolled
+components, and component ownership.
+
+Ant Design is a fully supported alternative for enterprise admin systems,
+internal business tools, dashboards, CRUD-heavy applications, projects needing
+many ready-made components, and teams prioritizing rapid delivery over
+customization.
+
+MUI is a fully supported alternative for corporate applications,
+Material Design products, applications needing a comprehensive component
+ecosystem, teams preferring strong conventions, and projects prioritizing
+mature ecosystem support.
+
+The template must not force a UI library. UI libraries are optional
+capabilities, and `none` preserves the lightweight baseline. Generation must
+include dependencies, source code, configuration, and tests only for the
+selected library. Unused components and dependencies are prohibited.
+
+Future maintenance must preserve capability isolation, accessibility, and the
+`none` baseline. Upgrades must be assessed for migration cost, ecosystem
+support, and generated-code ownership. Changing the default requires a
+documented long-term maintenance advantage, not newer APIs, popularity, or
+benchmark gains.
+
 ## Non-goals
 
 The template is not a component framework, application generator for a specific
