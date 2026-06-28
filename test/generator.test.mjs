@@ -17,13 +17,28 @@ test('default output includes defaults and omits optional styling', async () => 
 
 test('disabled capabilities leave no owned files', async () => {
   const root = await mkdtemp(join(tmpdir(), 'react-template-'))
-  const result = await generate(root, { router: false, apiClient: false, layout: 'none', errorBoundary: false, loadingState: false, envValidation: false, testing: 'none' })
-  assert(!result.files.some((file) => /apiClient|ErrorBoundary|LoadingState|env|test/.test(file)))
+  const result = await generate(root, {
+    router: false,
+    apiClient: false,
+    layout: 'none',
+    errorBoundary: false,
+    loadingState: false,
+    envValidation: false,
+    testing: 'none',
+  })
+  assert(
+    !result.files.some((file) =>
+      /apiClient|ErrorBoundary|LoadingState|env|test/.test(file),
+    ),
+  )
 })
 
 test('shadcn enables tailwind and invalid authorization fails', () => {
   assert.equal(resolveOptions({ shadcn: true }).options.tailwind, true)
-  assert.throws(() => resolveOptions({ authorization: 'permission' }), /requires authentication/)
+  assert.throws(
+    () => resolveOptions({ authorization: 'permission' }),
+    /requires authentication/,
+  )
 })
 
 test('component test output configures Vitest and router context', async () => {
@@ -33,4 +48,21 @@ test('component test output configures Vitest and router context', async () => {
   assert.match(testFile, /jest-dom\/vitest/)
   assert.match(testFile, /MemoryRouter/)
   assert.match(testFile, /import \{ expect,test \} from 'vitest'/)
+})
+
+test('disabled options do not add owned dependencies', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  await generate(root, {
+    router: false,
+    apiClient: false,
+    tailwind: false,
+    layout: 'none',
+    envValidation: false,
+    testing: 'none',
+  })
+  const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
+  const dependencies = { ...pkg.dependencies, ...pkg.devDependencies }
+  for (const name of ['react-router-dom', 'tailwindcss', 'zod', 'vitest']) {
+    assert.equal(dependencies[name], undefined)
+  }
 })

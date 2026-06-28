@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run quality
+
+  generated-build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: default
+            args: ''
+          - name: minimal
+            args: --router=false --apiClient=false --layout=none --errorBoundary=false --loadingState=false --envValidation=false --testing=none
+          - name: max
+            args: --shadcn=true --theme=light-dark --authentication=jwt --authorization=route --layout=app-shell --testing=component
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Generate ${{ matrix.name }} project
+        run: node bin/create-react-template.mjs generated ${{ matrix.args }}
+      - working-directory: generated
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - working-directory: generated
+        run: npm run build
+      - if: matrix.name != 'minimal'
+        working-directory: generated
+        run: npm test
+
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: react-template:${{ github.sha }}
