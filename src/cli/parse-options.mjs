@@ -1,1 +1,1 @@
-export * from '../../scripts/parser.mjs'
+export * from '../../generator/options.mjs'

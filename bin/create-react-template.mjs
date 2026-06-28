@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { generate } from '../scripts/index.mjs'
-import { parseOptionFlags } from '../scripts/parser.mjs'
+import { generate } from '../generator/index.mjs'
+import { parseOptionFlags } from '../generator/options.mjs'
 
 const [target = 'react-app', ...flags] = process.argv.slice(2)
 try {

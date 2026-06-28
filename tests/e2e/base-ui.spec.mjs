@@ -1,4 +1,4 @@
-import AxeBuilder from '@axe-core/playwright'
+import AxeBuilder from '@axe-core/playwright' // Generated UI accessibility smoke.
 import { expect, test } from '@playwright/test'
 
 test('generated application is usable and accessible', async ({ page }) => {

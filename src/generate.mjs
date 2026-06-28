@@ -1,1 +1,1 @@
-export * from '../scripts/index.mjs'
+export * from '../generator/index.mjs'

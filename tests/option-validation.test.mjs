@@ -1,4 +1,4 @@
-import { test } from 'node:test'
+import { test } from 'node:test' // Public option validation contract.
 import assert from 'node:assert/strict'
 import { parseOptionFlags } from '../src/cli/parse-options.mjs'
 import { createDependencyPlan } from '../src/generator/dependencies.mjs'

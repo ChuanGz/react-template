@@ -7,6 +7,12 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+- Separated canonical generator orchestration (`generator/`), generated file
+  templates (`templates/`), and repository tests (`tests/`) while retaining
+  compatibility re-exports for existing `scripts/` and `src/` imports.
+- Added independent forms, table, charts, and localization capability/template
+  boundaries plus a generated-application manifest contract test.
+
 ### Added
 
 - Capability options for client state, UI libraries, icons, notifications, and

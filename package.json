@@ -7,7 +7,7 @@
     "create-react-template": "bin/create-react-template.mjs"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs",
+    "test": "node --test tests/*.test.mjs",
     "generate": "node bin/create-react-template.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",

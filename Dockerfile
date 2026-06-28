@@ -6,6 +6,8 @@ RUN npm ci --omit=dev && npm cache clean --force
 COPY bin ./bin
 COPY src ./src
 COPY scripts ./scripts
+COPY generator ./generator
+COPY templates ./templates
 
 USER node
 ENTRYPOINT ["node", "bin/create-react-template.mjs"]

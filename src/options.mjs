@@ -1,1 +1,1 @@
-export * from '../scripts/validator.mjs'
+export * from '../generator/validator.mjs'

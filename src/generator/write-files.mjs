@@ -1,1 +1,1 @@
-export * from '../../scripts/writer.mjs'
+export * from '../../generator/writer.mjs'

@@ -10,7 +10,7 @@ src/
   lib/          framework-neutral utilities and integrations
   pages/        route-level screens when routing is enabled
   styles/       global styles when styling requires them
-  test/         shared test setup when testing is enabled
+  tests/        shared test setup when testing is enabled
 ```
 
 Only directories required by selected options are generated. A feature owns

@@ -9,26 +9,48 @@ conflict errors form the compatibility contract.
 
 The pipeline has four stages:
 
-1. `scripts/parser.mjs` parses only `--option=value` syntax and rejects
+1. `generator/options.mjs` parses only `--option=value` syntax and rejects
    malformed or duplicate flags.
-2. `scripts/validator.mjs` normalizes legacy input, validates every option, applies the
-   documented shadcn implication, and rejects incompatible combinations.
-3. `scripts/generator.mjs` composes a deterministic in-memory file map from
-   modules under `scripts/capabilities/`. `scripts/dependencies.mjs` composes
+2. `generator/validator.mjs` normalizes legacy input, validates every option,
+   applies the documented shadcn implication, and rejects incompatible
+   combinations.
+3. `generator/index.mjs` selects capabilities and composes a deterministic
+   in-memory file map from `templates/`. `generator/package-json.mjs` composes
    package ownership from the same capability boundaries.
-4. `scripts/writer.mjs` performs directory creation and file writes.
+4. `generator/writer.mjs` performs directory creation and file writes.
 
-`scripts/index.mjs` is the orchestration boundary. Compatibility re-exports
-under `src/` preserve the existing `generate(target, input)`, option, parser,
-writer, and dependency-planner imports.
+`generator/index.mjs` is the orchestration boundary. Compatibility re-exports
+under `scripts/` and `src/` preserve the existing `generate(target, input)`,
+option, parser, writer, and dependency-planner imports. New implementation code
+must not be added to those wrappers.
+
+```text
+generator/                  orchestration, validation, and capability selection
+├── capabilities/           one selection boundary per independent capability
+├── index.mjs               orchestration and deterministic file-plan composition
+├── options.mjs             CLI option parsing
+├── package-json.mjs        dependency ownership and package plan
+├── validator.mjs           defaults, implications, and conflicts
+└── writer.mjs              filesystem boundary
+
+templates/                  generated file content grouped by ownership
+├── base/
+├── router/
+├── forms/
+├── table/
+├── charts/
+└── localization/
+
+tests/                      option, generator, generated-app, and E2E contracts
+```
 
 ## Capability ownership rule
 
 Each capability owns its dependencies, generated files, configuration
-fragments, and tests. Strategy capabilities are implemented as small generators
-under `scripts/capabilities/`; they return file entries and do not know the
-target path. Shared application templates remain in the file-plan builder when
-their output depends on several capabilities.
+fragments, and tests. Selection logic belongs under `generator/capabilities/`;
+generated file content belongs under `templates/`. Template emitters return file
+entries and do not know the target path. Shared application templates remain in
+the base template only when their output depends on several capabilities.
 
 Current capability boundaries are deliberately small:
 
@@ -52,10 +74,10 @@ when those templates always change and validate together.
 
 When adding an option:
 
-1. Add its default and validator to `scripts/validator.mjs`.
+1. Add its default and validator to `generator/validator.mjs`.
 2. Add explicit conflict rules only for combinations that cannot produce a
    correct application. Do not silently rewrite user intent.
-3. Add dependency ownership to `dependencies.mjs`; runtime packages belong in
+3. Add dependency ownership to `generator/package-json.mjs`; runtime packages belong in
    `dependencies`, build and test tools in `devDependencies`.
 4. Add capability templates without filesystem side effects.
 5. Test every value, enabled output, disabled absence, dependency ownership, and

@@ -1,1 +1,1 @@
-export * from '../../scripts/dependencies.mjs'
+export * from '../../generator/package-json.mjs'
