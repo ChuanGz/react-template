@@ -26,4 +26,10 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 - Generated component tests now configure Vitest matchers and router context,
   allowing max-option projects to build and test successfully.
 
+### Changed
+
+- Expanded the roadmap to eight milestones: engineering tooling, production
+  readiness, extended application capabilities, documentation and adoption,
+  and final base-UI polish now have explicit delivery boundaries.
+
 [Unreleased]: https://github.com/ChuanGz/react-template/commits/main

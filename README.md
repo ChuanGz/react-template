@@ -28,7 +28,7 @@ validation rules.
 - Invalid option combinations fail generation instead of producing partial code.
 
 See the [engineering standards](docs/engineering/README.md) for normative M2
-contracts and the [roadmap](ROADMAP.md) for milestone scope.
+contracts and the eight-milestone [roadmap](ROADMAP.md) for delivery scope.
 
 ## Contributing and support
 

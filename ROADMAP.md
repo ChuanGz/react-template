@@ -26,17 +26,35 @@ the option contract.
 
 Status: implemented as a pre-release generator with contract tests.
 
-## M4 — Enterprise Features
+## M4 — Engineering Tooling
 
-Add optional data fetching, tables, forms, validation, charts, file upload,
-themes, localization, reusable components, and common page templates.
+Add ESLint, Prettier, GitHub Actions CI, Docker, a production build matrix, and
+automated option-isolation validation. This milestone establishes repeatable
+engineering checks before expanding application capabilities.
 
 ## M5 — Production Readiness
 
-Validate unit, component, and end-to-end testing; CI; containers; linting and
-formatting; bundle behavior; security; accessibility; and production builds.
+Validate unit, component, and end-to-end testing; bundle limits; dependency and
+security controls; accessibility; runtime error reporting boundaries; and
+production deployment behavior.
 
-## M6 — Documentation and Adoption
+## M6 — Extended Application Capabilities
 
-Publish adoption, option, structure, component, testing, and deployment guides;
-sample pages; release documentation; and the first stable release.
+Add optional TanStack Query, TanStack Table, React Hook Form with Zod, themes,
+localization, charts, file upload, reusable components, page templates, and API
+contracts such as base response, pagination, and error models. Every capability
+must preserve dependency and source isolation when disabled.
+
+## M7 — Documentation and Adoption
+
+Publish getting-started, CLI, option, structure, component, testing, deployment,
+capability, sample-application, release, and migration documentation. Validate
+that users can generate and extend projects without reading generator internals.
+
+## M8 — Polished Base UI
+
+Polish the generated base UI across supported styling choices with consistent
+typography, spacing, responsive behavior, navigation, forms, and empty, loading,
+error, and permission states. Preserve accessibility and ensure polish does not
+turn optional styling or application architecture into mandatory core. Complete
+final visual validation and prepare the first stable release.
