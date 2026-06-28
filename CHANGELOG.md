@@ -12,5 +12,8 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 - OSS repository governance and contribution documents.
 - GitHub issue forms and pull request template.
 - Automated Markdown lint and link validation workflows.
+- M2 template philosophy, option contract, project conventions, and
+  compatibility policy.
+- Explicit Vite-only support note with Webpack outside the support contract.
 
 [Unreleased]: https://github.com/ChuanGz/react-template/commits/main

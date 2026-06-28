@@ -14,6 +14,9 @@ Define template philosophy, option and compatibility contracts, project and
 folder structure, and conventions for components, routing, styling, testing,
 and documentation before application implementation.
 
+Status: complete. The normative contracts are indexed in the
+[engineering standards](docs/engineering/README.md).
+
 ## M3 — Application Foundation
 
 Implement a minimal React, TypeScript, and Vite core. Generate routing, API

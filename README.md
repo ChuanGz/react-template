@@ -6,9 +6,9 @@ unused source code, and forced frontend architecture.
 
 ## Status
 
-The repository foundation is available. The application generator and its
-option contract are planned but not implemented yet. Do not use this repository
-as a production starter until the first stable release.
+The repository foundation and M2 engineering contracts are available. The
+application generator is planned but not implemented yet. Do not use this
+repository as a production starter until the first stable release.
 
 ## Design direction
 
@@ -18,7 +18,8 @@ as a production starter until the first stable release.
 - Disabled options contribute no dependencies, configuration, source, or tests.
 - Invalid option combinations fail generation instead of producing partial code.
 
-See the [roadmap](ROADMAP.md) for milestone scope.
+See the [engineering standards](docs/engineering/README.md) for normative M2
+contracts and the [roadmap](ROADMAP.md) for milestone scope.
 
 ## Contributing and support
 
