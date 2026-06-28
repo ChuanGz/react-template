@@ -19,6 +19,15 @@ Flags use `--option=value`; omitted options use the documented defaults. See
 the [option contract](docs/engineering/OPTION_CONTRACT.md) for all values and
 validation rules.
 
+## Documentation
+
+- Start with the [documentation index](docs/README.md).
+- Follow the [getting-started guide](docs/GETTING_STARTED.md).
+- Review [capabilities](docs/CAPABILITIES.md) and
+  [testing and deployment](docs/TESTING_AND_DEPLOYMENT.md).
+- Use the [engineering standards](docs/engineering/README.md) for normative
+  project contracts.
+
 ## Design direction
 
 - React, TypeScript, and Vite form the minimal core.
@@ -27,8 +36,7 @@ validation rules.
 - Disabled options contribute no dependencies, configuration, source, or tests.
 - Invalid option combinations fail generation instead of producing partial code.
 
-See the [engineering standards](docs/engineering/README.md) for normative M2
-contracts and the eight-milestone [roadmap](ROADMAP.md) for delivery scope.
+See the eight-milestone [roadmap](ROADMAP.md) for delivery scope.
 
 ## Contributing and support
 

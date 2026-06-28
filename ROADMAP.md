@@ -60,6 +60,9 @@ Publish getting-started, CLI, option, structure, component, testing, deployment,
 capability, sample-application, release, and migration documentation. Validate
 that users can generate and extend projects without reading generator internals.
 
+Status: implemented with task-oriented adoption, capability, validation,
+deployment, release, and migration guides linked from the repository entrypoint.
+
 ## M8 — Polished Base UI
 
 Polish the generated base UI across supported styling choices with consistent

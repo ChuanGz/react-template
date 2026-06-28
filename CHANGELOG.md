@@ -28,6 +28,8 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
   error-boundary behavior.
 - M6 opt-in query, table, form, localization, chart, upload, reusable component,
   page-template, and API-model capabilities.
+- M7 task-oriented getting-started, option, capability, testing, deployment,
+  release, and migration documentation.
 
 ### Fixed
 
