@@ -78,7 +78,17 @@ test('application layouts provide a main landmark', async () => {
   const root = await mkdtemp(join(tmpdir(), 'react-template-'))
   await generate(root, { layout: 'app-shell' })
   const layout = await readFile(join(root, 'src/app/Layout.tsx'), 'utf8')
-  assert.match(layout, /<main className="app-shell">/)
+  assert.match(layout, /<main id="main-content" className="app-shell">/)
+})
+
+test('base UI includes responsive and accessible interaction states', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'react-template-'))
+  await generate(root, { theme: 'light-dark' })
+  const css = await readFile(join(root, 'src/index.css'), 'utf8')
+  const layout = await readFile(join(root, 'src/app/Layout.tsx'), 'utf8')
+  assert.match(css, /prefers-reduced-motion/)
+  assert.match(css, /:focus-visible/)
+  assert.match(layout, /Skip to Content/)
 })
 
 test('M6 capabilities remain absent by default', async () => {

@@ -70,3 +70,6 @@ typography, spacing, responsive behavior, navigation, forms, and empty, loading,
 error, and permission states. Preserve accessibility and ensure polish does not
 turn optional styling or application architecture into mandatory core. Complete
 final visual validation and prepare the first stable release.
+
+Status: complete with responsive, accessible plain-CSS output, consistent base
+states, optional theme controls, browser validation, and the `v1.0.0` release.

@@ -7,6 +7,8 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-06-28
+
 ### Added
 
 - OSS repository governance and contribution documents.
@@ -30,6 +32,8 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
   page-template, and API-model capabilities.
 - M7 task-oriented getting-started, option, capability, testing, deployment,
   release, and migration documentation.
+- M8 responsive base UI, accessible semantic layout, focus and reduced-motion
+  behavior, optional theme control, and polished shared states.
 
 ### Fixed
 
@@ -42,4 +46,5 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
   readiness, extended application capabilities, documentation and adoption,
   and final base-UI polish now have explicit delivery boundaries.
 
-[Unreleased]: https://github.com/ChuanGz/react-template/commits/main
+[Unreleased]: https://github.com/ChuanGz/react-template/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/ChuanGz/react-template/releases/tag/v1.0.0

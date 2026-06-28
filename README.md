@@ -6,8 +6,8 @@ unused source code, and forced frontend architecture.
 
 ## Status
 
-The M3 application generator is available for validation. The project remains
-pre-release; review generated output before production adoption.
+Version `1.0.0` provides the stable generator contract. Generated applications
+remain application-owned and should be reviewed against their deployment needs.
 
 ## Generate an application
 
