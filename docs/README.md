@@ -7,6 +7,7 @@ Use this index by task:
 - [Work with generated capabilities](CAPABILITIES.md)
 - [Test and validate a generated project](TESTING_AND_DEPLOYMENT.md)
 - [Prepare releases and migrations](RELEASING.md)
+- [Read the visual white paper](whitepaper/react-template-white-paper.pdf)
 - [Review normative engineering contracts](engineering/README.md)
 - [Review completed and future delivery milestones](../ROADMAP.md)
 
