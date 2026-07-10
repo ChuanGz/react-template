@@ -21,7 +21,7 @@
     "@playwright/test": "1.61.1",
     "eslint": "10.6.0",
     "globals": "17.7.0",
-    "markdownlint-cli2": "0.22.1",
+    "markdownlint-cli2": "0.23.0",
     "prettier": "3.9.1"
   },
   "engines": {
