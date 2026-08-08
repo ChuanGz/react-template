@@ -8,7 +8,7 @@ import {
 
 const json = (value) => `${JSON.stringify(value, null, 2)}\n`
 
-export function createBaseFilePlan(target, o, capabilityGenerators = []) {
+export function createBaseFilePlan(target, o) {
   const files = new Map()
   const { dependencies, devDependencies } = createDependencyPlan(o)
   files.set(
@@ -141,8 +141,6 @@ export function createBaseFilePlan(target, o, capabilityGenerators = []) {
       'src/app/Layout.tsx',
       `import type { ReactNode } from 'react'\nexport function Layout({ children }: { children: ReactNode }) { return <><a className="skip-link" href="#main-content">Skip to Content</a><main id="main-content"${o.layout === 'app-shell' ? ' className="app-shell"' : ''}>{children}</main></> }\n`,
     )
-  for (const addCapabilityFiles of capabilityGenerators)
-    addCapabilityFiles(files, o)
   files.set('.gitignore', 'node_modules\ndist\n.env.local\n')
   return files
 }

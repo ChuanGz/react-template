@@ -1,29 +1,13 @@
 import { resolve } from 'node:path'
-import { addApiCapabilityFiles } from '../templates/api/index.mjs'
-import { addAuthCapabilityFiles } from '../templates/auth/index.mjs'
 import { createBaseFilePlan } from '../templates/base/index.mjs'
-import { addExtendedCapabilityFiles } from '../templates/extended/index.mjs'
-import { addPresentationCapabilityFiles } from '../templates/presentation/index.mjs'
-import { addResilienceCapabilityFiles } from '../templates/resilience/index.mjs'
-import { addStrategyCapabilityFiles } from '../templates/strategies/index.mjs'
-import { addTestingCapabilityFiles } from '../templates/testing/index.mjs'
-import { addUiCapabilityFiles } from '../templates/ui/index.mjs'
+import { applyCapabilities, capabilities } from './capabilities/index.mjs'
 import { resolveOptions } from './validator.mjs'
 import { writeGeneratedFiles } from './writer.mjs'
 
-const capabilityGenerators = Object.freeze([
-  addAuthCapabilityFiles,
-  addApiCapabilityFiles,
-  addStrategyCapabilityFiles,
-  addPresentationCapabilityFiles,
-  addResilienceCapabilityFiles,
-  addUiCapabilityFiles,
-  addTestingCapabilityFiles,
-  addExtendedCapabilityFiles,
-])
-
-export function createFilePlan(target, options) {
-  return createBaseFilePlan(target, options, capabilityGenerators)
+export function createFilePlan(target, options, registry = capabilities) {
+  const files = createBaseFilePlan(target, options)
+  applyCapabilities(files, options, registry)
+  return files
 }
 
 export async function generate(target, input = {}) {

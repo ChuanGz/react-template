@@ -14,9 +14,10 @@ The pipeline has four stages:
 2. `generator/validator.mjs` normalizes legacy input, validates every option,
    applies the documented shadcn implication, and rejects incompatible
    combinations.
-3. `generator/index.mjs` selects capabilities and composes a deterministic
-   in-memory file map from `templates/`. `generator/package-json.mjs` composes
-   package ownership from the same capability boundaries.
+3. `generator/capabilities/index.mjs` provides the ordered capability registry.
+   `generator/index.mjs` composes that registry with a deterministic in-memory
+   file map from `templates/`. `generator/package-json.mjs` composes package
+   ownership from the same capability boundaries.
 4. `generator/writer.mjs` performs directory creation and file writes.
 
 `generator/index.mjs` is the orchestration boundary. Compatibility re-exports
@@ -26,7 +27,7 @@ must not be added to those wrappers.
 
 ```text
 generator/                  orchestration, validation, and capability selection
-├── capabilities/           one selection boundary per independent capability
+├── capabilities/           ordered registry and independent selection boundaries
 ├── index.mjs               orchestration and deterministic file-plan composition
 ├── options.mjs             CLI option parsing
 ├── package-json.mjs        dependency ownership and package plan
@@ -51,6 +52,12 @@ fragments, and tests. Selection logic belongs under `generator/capabilities/`;
 generated file content belongs under `templates/`. Template emitters return file
 entries and do not know the target path. Shared application templates remain in
 the base template only when their output depends on several capabilities.
+
+The registry gives each capability group a stable identity and an `addFiles`
+boundary. `createFilePlan` accepts a registry explicitly for isolated contract
+tests and future composition, while normal generation uses the frozen default
+registry. Add or reorder capability groups only in this registry; do not build
+another orchestration list in the CLI, templates, or compatibility wrappers.
 
 Current capability boundaries are deliberately small:
 
